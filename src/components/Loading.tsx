@@ -1,49 +1,47 @@
-
-import { COLORS, FLEX, FONT_SIZES } from '@/utils/constant';
-import { RenderContent, spreadProps } from '@/utils/helper';
-import React, { ReactNode } from 'react';
-import { Text, TextProps } from 'react-native';
+import {COLORS, FLEX} from '@/utils/constant';
+import {RenderContent, spreadProps} from '@/utils/helper';
+import React, {ReactNode} from 'react';
 import {
+  TextProps,
   ActivityIndicator,
   ActivityIndicatorProps,
   StyleSheet,
   View,
   ViewProps,
+  ViewStyle,
+  TextStyle,
 } from 'react-native';
+
+type LoadingSlotType = 'base' | 'indicator' | 'text';
+type LoadingViewStyle = Record<Exclude<LoadingSlotType, 'text'>, ViewStyle>;
+type LoadingStyles = Partial<LoadingViewStyle & Record<'text', TextStyle>>;
 
 interface LoadingProps extends ActivityIndicatorProps {
   props?: Partial<{
     container: ViewProps;
-    text: TextProps
+    text: TextProps;
   }>;
-  text?:ReactNode
+  text?: ReactNode;
+  styles?: LoadingStyles;
 }
 
-export const Loading = ({props,text, ...rest}: LoadingProps) => {
+const Loading = ({props, text, styles, ...rest}: LoadingProps) => {
   return (
     <View
       {...spreadProps(props?.container)}
       accessibilityRole="summary"
-      style={[ 
-        defaultStyles.container,
-        FLEX.center,
-        props?.container?.style,
-      ]}>
-      <ActivityIndicator size={'large'} color={COLORS.BLUE_NIGHT} {...rest} />
-      {/* <RenderContent render={text} styles={props?.text?.style}   /> */}
-      <RenderContent<ViewProps> 
-      render={<Text style={{color:"blue"}}>Fdsfdf</Text>}
-      style={{backgroundColor:"gray",color:"red",fontSize:100}}
-/>
-<RenderContent<ViewProps>
-  render={<Text>Invalid</Text>} // TypeScript error
-/>;
-
-
-<RenderContent<ViewProps>
-  render={<View style={{ backgroundColor: 'red' }} />}
-  accessibilityLabel="Test View"
-/>;
+      style={[defaultStyles.container, FLEX.center, props?.container?.style,styles?.base]}>
+      <ActivityIndicator
+        style={[styles?.indicator]}
+        size={'large'}
+        color={COLORS.BLUE_NIGHT}
+        {...rest}
+      />
+      <RenderContent<TextProps>
+        {...spreadProps(props?.text)}
+        render={text}
+        style={[props?.text?.style, styles?.text]}
+      />
     </View>
   );
 };
@@ -59,14 +57,7 @@ const defaultStyles = StyleSheet.create({
     height: '100%',
     color: COLORS.WHITE,
   },
-  icon: {
-    color: COLORS.PURPLE,
-    textAlign: 'center',
-  },
-  typo: {
-    textAlign: 'center',
-    color: COLORS.BLUE,
-    fontSize: FONT_SIZES['4xl'],
-    lineHeight: 44,
-  },
 });
+
+export {Loading}
+export type {LoadingProps,LoadingStyles,LoadingSlotType,}

@@ -1,43 +1,40 @@
-import React, { ReactElement, ReactNode } from "react"
-import { Text, StyleProp, Platform, useColorScheme, TextProps, ViewStyle, View } from 'react-native';
+import React, { isValidElement, ReactElement, ReactNode } from "react"
+import { Text, StyleProp, Platform, useColorScheme, TextProps, ViewStyle, View, ViewProps, ImageProps, TextInputProps } from 'react-native';
 import { Prettify, StyleTypeInRN } from "@/types/index"
 
 
-// interface RenderContentProps<T> extends T {
-//   render: ReactNode;
-// }
-//{render,styles,attibuest}:{render:ReactNode,styles?:StyleProp<StyleTypeInRN>}
 
-// interface RenderContentProps<T> {
-//   render: ReactNode; // Render prop can be any ReactNode (Element, String, etc.)
-//   styles?: StyleProp<ViewStyle>;
-//   attibuest?: T; // attibuest ka type dynamically decide hoga
-// }
+type ViewElementProps = JSX.IntrinsicElements["view"];
+type MyViewProps = ViewProps; // ✅ Yeh View ka prop type hai
 
-type StrictReactElement<T> = ReactElement<T>;
 
-// type RenderContentProps<T extends Object> = Prettify<{
-//   render: StrictReactElement<T>;
-// } & T>
-type ExactProps<T> = {
-  [K in keyof T]: T[K];
-};
+
+type MyComponentProps = React.ComponentProps<typeof Text>;
+
+
+interface bok  {
+  render: TextProps extends keyof MyComponentProps ? "GG" : "NN"
+ }
+//  const mmm:TextInputProps ={
+//   onChange
+//  }
+ 
 type RenderContentProps<T extends object> = {
-  render: ReactElement<ExactProps<T>>;
-} & ExactProps<T>;
+  /// React.ReactElement<TextProps, string | React.JSXElementConstructor<any>> & React.JSX.Element
+  // render: TextProps["style"] extends TextProps ? Text : View
+  render: ReactNode,
+} & Prettify<T>;
 
 
-const RenderContent = <T extends Object = {}> ({render,...rest}:RenderContentProps<T>)=>{
-  console.log("render",render?.props)
-  debugger
+
+const RenderContent = <T extends Object = TextProps> ({render,...rest}:RenderContentProps<T>)=>{
   if(!render) return ""
   return (
      React.isValidElement(render)
     ? React.cloneElement(render as React.ReactElement, {
-        // style: [styles,render?.props?.style],
         ...rest
       })
-    : <Text style={render?.props?.style} {...rest}>{render}</Text>
+    : <Text {...rest}>{render}</Text>
   )
 }
 const spreadProps = <T extends object>(props?: T) => ({

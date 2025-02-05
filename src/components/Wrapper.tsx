@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, {ReactNode} from 'react';
 import {
   KeyboardAvoidingViewProps,
   SafeAreaView,
@@ -6,13 +6,14 @@ import {
   ScrollViewProps,
   StatusBar,
   StatusBarProps,
+  StyleProp,
   StyleSheet,
-  View,
+  ViewStyle,
 } from 'react-native';
-import { SafeAreaViewProps } from 'react-native-safe-area-context';
-import { Loading } from '@/components/index';
-import { KeyboardAvoidingView } from 'react-native';
-import { isIOS, useIsDark } from '@/utils/index';
+import {Loading} from '@/components/index';
+import {KeyboardAvoidingView} from 'react-native';
+import {isIOS, useIsDark} from '@/utils/index';
+import { SafeAreaViewProps} from '../types';
 
 type AllBooleanTypes = Partial<
   Record<
@@ -24,17 +25,28 @@ type AllBooleanTypes = Partial<
     boolean
   >
 >;
+
+type StyleSlotWrapper =
+  | 'safeAreaView'
+  | 'scrollView'
+  | 'keyboardAvoidingView'
+  | 'loading';
+
 type AllProps = Partial<{
   safeAreaView: SafeAreaViewProps;
   statusBar: StatusBarProps;
   scrollView: ScrollViewProps;
   keyboardAvoidingView: KeyboardAvoidingViewProps;
-  // loading:
 }>;
+
+// type dd = Record<>
 
 export interface WrapperProps extends AllBooleanTypes {
   children: ReactNode;
   props?: AllProps;
+  styles?: Partial<
+    Record<Exclude<StyleSlotWrapper, 'loading'>, StyleProp<ViewStyle>>
+  >;
 }
 
 export function Wrapper({
@@ -45,6 +57,7 @@ export function Wrapper({
   loading = false,
   children,
   props,
+  styles,
 }: WrapperProps) {
   const isDark = useIsDark();
   const scrollView = (
@@ -56,7 +69,7 @@ export function Wrapper({
   );
   return (
     <>
-      {true && <Loading text={<View style={{backgroundColor:"black",height:20,width:20}}></View>}  />}
+      {loading && <Loading styles={styles?.loading} text="Loading...." />}
       {useSafeArea && <SafeAreaView {...props?.safeAreaView} />}
       {useStatus && (
         <StatusBar
@@ -80,7 +93,6 @@ export function Wrapper({
     </>
   );
 }
-
 
 const defaultStyle = StyleSheet.create({
   keyboardView: {
