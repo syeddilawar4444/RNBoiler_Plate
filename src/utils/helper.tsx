@@ -1,20 +1,7 @@
-import React, { isValidElement, ReactElement, ReactNode } from "react"
-import { Text, StyleProp, Platform, useColorScheme, TextProps, ViewStyle, View, ViewProps, ImageProps, TextInputProps } from 'react-native';
-import { Prettify, StyleTypeInRN } from "@/types/index"
+import React, { ReactNode } from "react"
+import { Text, Platform, useColorScheme, TextProps, } from 'react-native';
+import { Prettify } from "@/types/index"
 
-
-
-type ViewElementProps = JSX.IntrinsicElements["view"];
-type MyViewProps = ViewProps; // ✅ Yeh View ka prop type hai
-
-
-
-type MyComponentProps = React.ComponentProps<typeof Text>;
-
-
-interface bok  {
-  render: TextProps extends keyof MyComponentProps ? "GG" : "NN"
- }
 //  const mmm:TextInputProps ={
 //   onChange
 //  }
@@ -47,4 +34,15 @@ const useIsDark = (): boolean => {
   return useColorScheme() === 'dark';
 };
 
-export {RenderContent,spreadProps,isIOS,useIsDark}
+function createRoutes(routes: string[]) {
+  const routeObject = routes.reduce((acc, route) => {
+    const key = route.toUpperCase().replace(/ /g, '_');  // Convert to UPPER_SNAKE_CASE
+    acc[key] = route; // Map key to PascalCase route name
+    return acc;
+  }, {} as Record<string, string>);
+  return routeObject;
+}
+
+
+
+export {RenderContent,spreadProps,isIOS,useIsDark,createRoutes}

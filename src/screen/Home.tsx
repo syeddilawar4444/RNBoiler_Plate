@@ -2,9 +2,11 @@ import {View, Text, Button} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Wrapper} from '@/components/Wrapper';
+import { ROUTES } from '@/utils/index';
+import { NavigationProps } from '@/types/index';
 
 export default function Home() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
   return (
     <Wrapper>
       <View>

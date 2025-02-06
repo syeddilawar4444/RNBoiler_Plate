@@ -6,14 +6,12 @@ import {
   ScrollViewProps,
   StatusBar,
   StatusBarProps,
-  StyleProp,
   StyleSheet,
-  ViewStyle,
 } from 'react-native';
-import {Loading} from '@/components/index';
+import { Loading, LoadingProps, LoadingStyles } from '@/components/index';
 import {KeyboardAvoidingView} from 'react-native';
 import {isIOS, useIsDark} from '@/utils/index';
-import { SafeAreaViewProps} from '../types';
+import { SafeAreaViewProps, ViewStyleProp} from '@/types/index';
 
 type AllBooleanTypes = Partial<
   Record<
@@ -32,24 +30,25 @@ type StyleSlotWrapper =
   | 'keyboardAvoidingView'
   | 'loading';
 
-type AllProps = Partial<{
+type WrapperAllProps = Partial<{
   safeAreaView: SafeAreaViewProps;
   statusBar: StatusBarProps;
   scrollView: ScrollViewProps;
   keyboardAvoidingView: KeyboardAvoidingViewProps;
+  loading: LoadingProps
 }>;
 
-// type dd = Record<>
-
-export interface WrapperProps extends AllBooleanTypes {
+interface WrapperProps extends AllBooleanTypes {
   children: ReactNode;
-  props?: AllProps;
+  props?: WrapperAllProps;
   styles?: Partial<
-    Record<Exclude<StyleSlotWrapper, 'loading'>, StyleProp<ViewStyle>>
+    Record<Exclude<StyleSlotWrapper, 'loading'>, ViewStyleProp> & {
+      loading: LoadingStyles
+    }
   >;
 }
 
-export function Wrapper({
+function Wrapper({
   useSafeArea = true,
   useStatus = true,
   useKeyboardView = false,
@@ -64,12 +63,14 @@ export function Wrapper({
     <RenderScrollView
       children={children}
       useScrollView={useScrollView}
-      props={props?.scrollView}
+      contentContainerStyle={styles?.safeAreaView}
+      style={props?.scrollView?.style}
+      {...props?.scrollView}
     />
   );
   return (
     <>
-      {loading && <Loading styles={styles?.loading} text="Loading...." />}
+      {loading && <Loading styles={styles?.loading} text="Loading...." {...props?.loading} />}
       {useSafeArea && <SafeAreaView {...props?.safeAreaView} />}
       {useStatus && (
         <StatusBar
@@ -103,22 +104,25 @@ const defaultStyle = StyleSheet.create({
 const RenderScrollView = ({
   useScrollView,
   children,
-  props,
+  ...rest
 }: {
   useScrollView?: boolean;
   children: ReactNode;
-  props?: ScrollViewProps;
-}) => {
+} & ScrollViewProps) => {
   return useScrollView ? (
     <ScrollView
       nestedScrollEnabled
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       bounces={false}
-      {...props}>
+      {...rest}
+      >
       {children}
     </ScrollView>
   ) : (
     children
   );
 };
+
+export type {WrapperProps}
+export {Wrapper,RenderScrollView}

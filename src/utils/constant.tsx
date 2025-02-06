@@ -100,7 +100,6 @@ const COLORS = {
     BLUE_STEEL: 'rgba(70, 130, 180, 1)',
 } as const;
 
-
 const FLEX = StyleSheet.create({
   item_center:{
     display:"flex",
@@ -117,4 +116,19 @@ const FLEX = StyleSheet.create({
   },
 });
 
-export {FONT_SIZES,COLORS,FLEX}
+const ROUTES = {
+  LOG_IN:"Login",
+  SIGN_UP:"Signup",
+  FORGOT_PASSWORD:"ForgotPassword",
+  HOME:"Home",
+  ABOUT:"About",
+} as const
+
+
+// type RouteName = typeof routeNames[number];
+
+
+
+
+
+export {FONT_SIZES,COLORS,FLEX,ROUTES}
