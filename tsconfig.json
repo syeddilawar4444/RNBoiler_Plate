@@ -3,12 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-
-      // "@/*": ["./*"]
-      // "@/Components": ["./src/component"],
       "@/components/*": ["src/components/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/types/*": ["./src/types/*"],
+      "@/navigation/*": ["./src/config/navigation/*"],
+      "@/config/*": ["./src/config/*"],
+      "@/screen/*": ["./src/screen/*"],
     }
   }
 }

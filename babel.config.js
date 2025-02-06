@@ -7,9 +7,12 @@ module.exports = {
         root: ['./'],
         extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
         alias: {
-          '@/components': './src/components',  // Correct alias for components
-          '@/utils': './src/utils',          // Correct alias for utils
+          '@/components': './src/components',
+          '@/utils': './src/utils',
           '@/types': './src/types',   
+          '@/navigation': './src/config/navigation',   
+          '@/config': './src/config',   
+          '@/screen': './src/screen',   
         },
       },
     ],

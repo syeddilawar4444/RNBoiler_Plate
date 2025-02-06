@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react"
-import { Text, Platform, useColorScheme, TextProps, } from 'react-native';
+import { Text, Platform, useColorScheme, TextProps, Dimensions, } from 'react-native';
 import { Prettify } from "@/types/index"
 
 //  const mmm:TextInputProps ={
@@ -33,6 +33,8 @@ const isIOS = ():boolean => {
 const useIsDark = (): boolean => {
   return useColorScheme() === 'dark';
 };
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 function createRoutes(routes: string[]) {
   const routeObject = routes.reduce((acc, route) => {
