@@ -2,7 +2,6 @@ import {View, Text, Button} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Wrapper} from '@/components/Wrapper';
-import { ROUTES } from '@/utils/index';
 import { NavigationProps } from '@/types/index';
 
 export default function Home() {
