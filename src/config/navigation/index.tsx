@@ -25,7 +25,6 @@ const MyTab = () => {
 };
 
 export default function Navigator() {
-
   const stackData: StackDataProps<RootStackProps>[] = [
     {
       name: 'Home',
@@ -36,13 +35,14 @@ export default function Navigator() {
       component: Login,
     },
   ];
+
   return (
     <NavigationContainer>
       <StactNavigator
         list={stackData}
         screenOptions={{
           animation: 'flip',
-          headerShown: true,
+          headerShown: true
         }}
       />
     </NavigationContainer>
