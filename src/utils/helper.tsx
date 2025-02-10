@@ -33,8 +33,20 @@ const isIOS = ():boolean => {
 const useIsDark = (): boolean => {
   return useColorScheme() === 'dark';
 };
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const screenHeight = (percent: any) => {
+  const screenHeight = Dimensions.get('window').height;
+  return (screenHeight * percent) / 100;
+};
+
+const screenWidth = (percent: any) => {
+  const screenWidth = Dimensions.get('window').width;
+  return (screenWidth * percent) / 100;
+};
+const fontScale = (percent: any) => {
+  const scale = Dimensions.get('window').scale;
+  return (scale * percent) / 2;
+};
+
 
 function createRoutes(routes: string[]) {
   const routeObject = routes.reduce((acc, route) => {
@@ -47,4 +59,4 @@ function createRoutes(routes: string[]) {
 
 
 
-export {RenderContent,spreadProps,isIOS,useIsDark,createRoutes}
+export {RenderContent,spreadProps,isIOS,useIsDark,createRoutes,screenHeight,screenWidth,fontScale}
