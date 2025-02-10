@@ -4,6 +4,7 @@ import {RootStackProps} from '@/types/index';
 import Login from 'src/screen/Login';
 import {StackDataProps, StactNavigator} from './stackNavigator';
 import {BottomTabDataProps, BottomTabNavigator} from './bottomTabNavigator';
+import LetsYouIn from '@/screen/LetsYouIn';
 
 const MyTab = () => {
   const BottomTabData: BottomTabDataProps<RootStackProps>[] = [
@@ -28,7 +29,8 @@ export default function Navigator() {
   const stackData: StackDataProps<RootStackProps>[] = [
     {
       name: 'Home',
-      component: MyTab,
+      component: LetsYouIn,
+      options:{headerShown:false}
     },
     {
       name: 'Login',
@@ -36,13 +38,14 @@ export default function Navigator() {
     },
   ];
 
+
   return (
     <NavigationContainer>
       <StactNavigator
         list={stackData}
         screenOptions={{
           animation: 'flip',
-          headerShown: true
+          headerShown: false
         }}
       />
     </NavigationContainer>

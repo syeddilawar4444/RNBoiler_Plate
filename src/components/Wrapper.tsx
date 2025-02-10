@@ -70,7 +70,7 @@ function Wrapper({
   );
   return (
     <>
-      {loading && <Loading styles={styles?.loading} text="Loading...." {...props?.loading} />}
+      {loading && <Loading styles={styles?.loading} text="Loading...." {...props?.loading}  />}
       {useSafeArea && <SafeAreaView {...props?.safeAreaView} />}
       {useStatus && (
         <StatusBar

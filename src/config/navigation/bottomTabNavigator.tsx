@@ -50,7 +50,6 @@ const BottomTabNavigator = <T extends ParamListBase = RootStackProps>({
       )),
     [list,BottomTab]
   );
-
   return (
     <BottomTab.Navigator
       screenOptions={{

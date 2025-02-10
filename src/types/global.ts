@@ -11,7 +11,7 @@ type ElementProps<T extends keyof React.JSX.IntrinsicElements | React.JSXElement
 type SafeAreaViewProps = ElementProps<typeof SafeAreaView>;
 
 // =========================== Custom Healper Types ===========================
-type isOptional<V extends boolean> = V extends false ? true : false; // retun the true and false according to is optional
+type isOptional<V extends boolean> = V extends false ? true : false; // return the true and false according to is optional
 type RenderTypes<
   K extends string,
   V extends any,

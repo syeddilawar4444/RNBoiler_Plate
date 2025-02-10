@@ -17,6 +17,8 @@ const config = {
       '@/navigation': path.resolve(__dirname, 'src/config/navigation'),    
       '@/config': path.resolve(__dirname, 'src/config'),    
       '@/screen': path.resolve(__dirname, 'src/screen'),    
+      '@/assets': path.resolve(__dirname, 'src/assets'),    
+      '@/images': path.resolve(__dirname, 'src/assets/images'),
     },
   },
 };

@@ -13,6 +13,8 @@ module.exports = {
           '@/navigation': './src/config/navigation',   
           '@/config': './src/config',   
           '@/screen': './src/screen',   
+          '@/assets': './src/assets',   
+          '@/images': './src/assets/images',   
         },
       },
     ],

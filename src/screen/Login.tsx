@@ -9,7 +9,7 @@ export default function Login() {
   return (
     <Wrapper>
       <View>
-        <Text>Login Page</Text>
+        <Text >Login Page</Text>
         <Button onPress={() => navigation.navigate('Home')} title="Navigated" />
       </View>
     </Wrapper>
